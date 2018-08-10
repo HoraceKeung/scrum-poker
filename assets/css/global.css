@@ -10,8 +10,13 @@
   ##  CUSTOM CLASSES
   --------------------------------------------------------- */
 
+@font-face {
+	font-family: tech;
+	src: url(~/assets/font/ShareTechMono-Regular.ttf);
+}
+
 html {
-	font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	font-family: tech;
 	font-size: 16px;
 	word-spacing: 1px;
 	-ms-text-size-adjust: 100%;
@@ -39,4 +44,7 @@ html {
 }
 button:focus {
 	outline: 0;
+}
+.rotate {
+	transform: rotate(180deg);
 }

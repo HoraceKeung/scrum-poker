@@ -15,7 +15,9 @@ module.exports = {
 	},
 	loading: false,
 	manifest: {
-		theme_color: '#24292e'
+		name: 'Scrum Poker',
+		theme_color: '#24292e',
+		orientation: 'portrait'
 	},
 	modules: ['@nuxtjs/pwa'],
 	build: {
