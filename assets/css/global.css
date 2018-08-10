@@ -24,3 +24,19 @@ html {
 	box-sizing: border-box;
 	margin: 0;
 }
+.rainbow {
+	background: linear-gradient(to right, red, orange , yellow, green, cyan, blue, violet);
+	filter: blur(0.075rem);
+}
+.btn-active, .btn-inactive {
+	@apply h-12 w-full font-bold text-xl
+}
+.btn-active {
+	@apply text-black bg-white
+}
+.btn-inactive {
+	@apply text-white bg-black
+}
+button:focus {
+	outline: 0;
+}
