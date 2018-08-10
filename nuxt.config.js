@@ -16,6 +16,7 @@ module.exports = {
 	loading: false,
 	manifest: {
 		name: 'Scrum Poker',
+		short_name: 'Scrum Poker',
 		theme_color: '#24292e',
 		orientation: 'portrait'
 	},
