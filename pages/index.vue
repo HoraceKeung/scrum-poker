@@ -3,7 +3,7 @@
 		<div class="flex-1 flex flex-wrap -mx-2">
 			<div v-for="c in currentGroupCards" :key="c" class="w-1/3 px-2 flex">
 				<div class="m-auto cursor-pointer">
-					<img class="h-24 shadow-md block" src="~/assets/img/card.png">
+					<img class="h-24 shadow-md block" src="~/assets/img/card.png" :alt="c">
 					<div class="relative">
 						<div class="absolute h-24 w-full text-center pin-b p-3 flex flex-col justify-between">
 							<p class="text-2xl font-bold" v-html="c"/>
@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<div class="w-1/3 px-2 flex"><div class="m-auto cursor-pointer" @click="openMenu">
-				<img class="h-24 shadow-md block" src="~/assets/img/card-back.png">
+				<img class="h-24 shadow-md block" src="~/assets/img/card-back.png" alt="card">
 			</div></div>
 		</div>
 		<div class="flex">
