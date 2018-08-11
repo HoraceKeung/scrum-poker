@@ -1,7 +1,7 @@
 <template>
 	<section class="flex flex-col min-h-screen container overflow-hidden shadow">
 		<div class="relative">
-			<div :class="'menu w-2/3 '+(showMenu?'pin-l':'move-left')">
+			<div v-touch:swipe.left="swipe" :class="'menu w-2/3 '+(showMenu?'pin-l':'move-left')">
 				<div class="my-auto text-center">
 					<p class="text-xl font-bold">Scrum Poker</p>
 					<div><img class="block w-full" src="~/assets/img/qr-code.png" alt="https://horacekeung.github.io/scrum-poker/"></div>
@@ -43,6 +43,7 @@
 <script>
 export default {
 	methods: {
+		swipe () { this.showMenu = false },
 		share () {
 			window.navigator.share({
 				title: 'Scrum Poker',
