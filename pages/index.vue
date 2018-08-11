@@ -2,10 +2,12 @@
 	<section class="flex flex-col min-h-screen container overflow-hidden shadow">
 		<div class="relative">
 			<div :class="'menu '+(showMenu?'w-2/3':'w-0')">
-				<p class="mt-auto mx-auto text-xl font-bold">Scrum Poker</p>
-				<div><img class="block w-full" src="~/assets/img/qr-code.png" alt="https://horacekeung.github.io/scrum-poker/"></div>
-				<p class="mx-auto mb-auto text-xl cursor-pointer no-highlight bg-black text-white py-2 px-4 rounded" @click="share">Share</p>
-				<div><img class="w-10 h-10 m-2" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMCAwIDEwIDEwIDEwIDkwIDAgMTAwIFoiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlPSIjMjQyOTJlIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgogIDxwYXRoIGQ9Ik0xMDAgMCwgMTAwIDEwLCA5MCAxNiwgOTAgNDUsIDQwIDQ1LCA0MCA1NSwgOTAgNTUsIDkwIDg0LCAxMDAgOTAsIDEwMCAxMDAsIDE1IDUwIFoiIGZpbGw9IiMyNDI5MmUiLz4KICA8cGF0aCBkPSJNMTAwIDIwIFYgODAiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlPSIjMjQyOTJlIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8L3N2Zz4K"></div>
+				<div class="my-auto text-center">
+					<p class="text-xl font-bold">Scrum Poker</p>
+					<div><img class="block w-full" src="~/assets/img/qr-code.png" alt="https://horacekeung.github.io/scrum-poker/"></div>
+					<p v-if="canNavigatorShare" class="mx-auto w-24 text-xl cursor-pointer no-highlight bg-black text-white py-2 px-4 rounded" @click="share">Share</p>
+				</div>
+				<div><img class="w-10 h-10 m-2" alt="HK" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMCAwIDEwIDEwIDEwIDkwIDAgMTAwIFoiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlPSIjMjQyOTJlIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgogIDxwYXRoIGQ9Ik0xMDAgMCwgMTAwIDEwLCA5MCAxNiwgOTAgNDUsIDQwIDQ1LCA0MCA1NSwgOTAgNTUsIDkwIDg0LCAxMDAgOTAsIDEwMCAxMDAsIDE1IDUwIFoiIGZpbGw9IiMyNDI5MmUiLz4KICA8cGF0aCBkPSJNMTAwIDIwIFYgODAiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlPSIjMjQyOTJlIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8L3N2Zz4K"></div>
 			</div>
 		</div>
 		<div class="flex-1 flex flex-wrap -mx-2">
@@ -42,21 +44,16 @@
 export default {
 	methods: {
 		share () {
-			const text = 'I am using Scrum Poker, get yours here'
-			if ('share' in navigator) {
-				navigator.share({
-					title: document.title,
-					text: text,
-					url: location.href,
-				})
-			} else {
-				// Here we use the WhatsApp API as fallback; remember to encode your text for URI
-				location.href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(text + ' - ') + location.href
-			}
+			window.navigator.share({
+				title: 'Scrum Poker',
+				text: 'I am using Scrum Poker, get yours here',
+				url: 'https://horacekeung.github.io/scrum-poker/',
+			})
 		}
 	},
 	computed: {
-		currentGroupCards () { return this.cardGroups.find(g => g.name === this.currentGroupName).cards.concat(this.others) }
+		currentGroupCards () { return this.cardGroups.find(g => g.name === this.currentGroupName).cards.concat(this.others) },
+		canNavigatorShare () { return !!window.navigator.share }
 	},
 	data: () => ({
 		currentGroupName: 'Standard',
