@@ -11,6 +11,13 @@ class TailwindExtractor {
 module.exports = {
 	mode: 'spa',
 	head: {
+		meta: [
+			{ name: 'twitter:card', content: 'summary_large_image' },
+			{ name: 'twitter:domain', content: 'https://horacekeung.github.io/scrum-poker/' },
+			{ property: 'og:image', name: 'twitter:image', itemprop: 'image primaryImageOfPage', content: 'https://horacekeung.github.io/scrum-poker/icon.png' },
+			{ property: 'og:image:width', content: '300' },
+			{ property: 'og:image:height', content: '300' },
+		],
 		script: process.env.DEPLOY_ENV === 'GH_PAGES' ? [{src: '/scrum-poker/gh-spa.js'}] : []
 	},
 	loading: false,
@@ -18,13 +25,7 @@ module.exports = {
 		name: 'Scrum Poker',
 		short_name: 'Scrum Poker',
 		theme_color: '#24292e',
-		orientation: 'portrait',
-		ogImage: {
-			width: 300,
-			height: 300,
-			path: 'https://horacekeung.github.io/scrum-poker/_nuxt/img/qr-code.b12e5f0.png',
-			type: 'image/png'
-		}
+		orientation: 'portrait'
 	},
 	modules: ['@nuxtjs/pwa'],
 	build: {
