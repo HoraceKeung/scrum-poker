@@ -45,6 +45,25 @@ html {
 button:focus {
 	outline: 0;
 }
+button:focus, .no-highlight {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 .rotate {
 	transform: rotate(180deg);
+}
+.transition {
+	z-index: 1;
+	transition: z-index 0.25s step-end, transform 0.25s;
+}
+.expanded {
+	transition: z-index 0.25s step-start, transform 0.25s;
+	transform: scale(4);
+	@apply z-10 fixed pin flex
+}
+.blur {
+	filter: blur(0.5rem);
+}
+.menu {
+	transition: all 0.25s;
+	@apply bg-white absolute z-20 h-screen flex flex-col shadow-lg overflow-hidden
 }

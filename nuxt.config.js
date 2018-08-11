@@ -46,7 +46,7 @@ module.exports = {
 							extractor: TailwindExtractor,
 							extensions: ['vue']
 						}],
-						whitelist: ['html', 'body'],
+						whitelist: ['html', 'body', 'transition', 'expanded', 'blur', 'menu'],
 						whitelistPatterns: [/^btn/]
 					})
 				)
