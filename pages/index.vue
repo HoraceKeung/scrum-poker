@@ -1,13 +1,13 @@
 <template>
 	<section class="flex flex-col min-h-screen container overflow-hidden shadow">
 		<div class="relative">
-			<div v-touch:swipe.left="swipe" :class="'menu w-2/3 '+(showMenu?'pin-l':'move-left')">
+			<div v-touch:swipe.left="swipe" :class="'menu w-2/3'+(showMenu?' menu-open':'')">
 				<div class="my-auto text-center">
 					<p class="text-xl font-bold">Scrum Poker</p>
 					<div><img class="block w-full" src="~/assets/img/qr-code.png" alt="https://horacekeung.github.io/scrum-poker/"></div>
 					<p v-if="canNavigatorShare" class="mx-auto w-24 text-xl cursor-pointer no-highlight bg-black text-white py-2 px-4 rounded" @click="share">Share</p>
 				</div>
-				<div><img class="w-10 h-10 m-2" alt="HK" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMCAwIDEwIDEwIDEwIDkwIDAgMTAwIFoiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlPSIjMjQyOTJlIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgogIDxwYXRoIGQ9Ik0xMDAgMCwgMTAwIDEwLCA5MCAxNiwgOTAgNDUsIDQwIDQ1LCA0MCA1NSwgOTAgNTUsIDkwIDg0LCAxMDAgOTAsIDEwMCAxMDAsIDE1IDUwIFoiIGZpbGw9IiMyNDI5MmUiLz4KICA8cGF0aCBkPSJNMTAwIDIwIFYgODAiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlPSIjMjQyOTJlIiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8L3N2Zz4K"></div>
+				<div><img class="w-10 h-10 m-2" alt="HK" src="~/assets/img/hk.svg"></div>
 			</div>
 		</div>
 		<div class="flex-1 flex flex-wrap -mx-2">
@@ -16,7 +16,12 @@
 					<div class="m-auto">
 						<img class="h-24 shadow-md block" src="~/assets/img/card.png" :alt="c">
 						<div class="relative">
-							<div class="absolute h-24 w-full text-center pin-b p-3 flex flex-col justify-between">
+							<div v-if="c==='coffee'" class="absolute h-24 w-full pin-b p-3 flex flex-col justify-between">
+								<div class="mx-auto"><img class="h-6 w-6 block" src="~/assets/img/coffee.svg"></div>
+								<div class="mx-auto"><img class="h-3 w-3 block" src="~/assets/img/coffee.svg"></div>
+								<div class="mx-auto rotate"><img class="h-6 w-6 block" src="~/assets/img/coffee.svg"></div>
+							</div>
+							<div v-else class="absolute h-24 w-full text-center pin-b p-3 flex flex-col justify-between">
 								<p class="text-2xl font-bold" v-html="c"/>
 								<p class="text-xs font-light text-grey-darker mt-px" v-html="c"/>
 								<p class="text-2xl font-bold rotate" v-html="c"/>
@@ -61,7 +66,7 @@ export default {
 		cardGroups: [
 			{
 				name: 'Standard',
-				cards: ['0', '1/2', '1', '2', '3', '5', '8', '13', '20', '40', '90', '100']
+				cards: ['0', '1/2', '1', '2', '3', '5', '8', '13', '20', '40', '100', 'coffee']
 			},
 			{
 				name: 'Fibonacci',
