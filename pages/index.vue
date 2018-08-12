@@ -7,7 +7,10 @@
 					<div><img class="block w-full" src="~/assets/img/qr-code.png" alt="https://horacekeung.github.io/scrum-poker/"></div>
 					<p v-if="canNavigatorShare" class="mx-auto w-24 text-xl cursor-pointer no-highlight bg-black text-white py-2 px-4 rounded" @click="share">Share</p>
 				</div>
-				<div><img class="w-10 h-10 m-2" alt="HK" src="~/assets/img/hk.svg"></div>
+				<div class="flex justify-between p-2">
+					<img class="w-10 h-10" alt="HK" src="~/assets/img/hk.svg">
+					<p class="mt-auto">Version 0.1.0</p>
+				</div>
 			</div>
 		</div>
 		<div class="flex-1 flex flex-wrap -mx-2">

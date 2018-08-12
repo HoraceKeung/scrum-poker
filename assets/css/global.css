@@ -56,7 +56,7 @@ button:focus, .no-highlight {
 	@apply z-10 fixed pin flex
 }
 .blur {
-	filter: blur(0.5rem);
+	/* filter: blur(0.5rem); */
 }
 .menu {
 	-webkit-transform: translateX(-100%);
