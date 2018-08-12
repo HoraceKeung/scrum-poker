@@ -66,6 +66,7 @@ button:focus, .no-highlight {
 .menu {
 	-webkit-transform: translateX(-100%);
 	transform: translateX(-100%);
+	will-change: transform;
 	transition: transform 0.25s;
 	@apply bg-white absolute z-20 h-screen flex flex-col shadow-lg overflow-hidden
 }
