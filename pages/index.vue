@@ -9,13 +9,13 @@
 				</div>
 				<div class="flex justify-between p-2">
 					<img class="w-10 h-10" alt="HK" src="~/assets/img/hk.svg">
-					<p class="mt-auto">Version 0.1.0</p>
+					<p class="mt-auto">Version 0.1.1</p>
 				</div>
 			</div>
 		</div>
 		<div class="flex-1 flex flex-wrap -mx-2">
 			<div v-for="c in currentGroupCards" :key="c" class="w-1/3 px-2 relative flex">
-				<div :class="'transition m-auto cursor-pointer no-highlight'+(expanded?(expanded===c?' expanded':' blur'):'')+(showMenu?' blur':'')" @click="showMenu?null:(expanded=expanded===c?null:c)">
+				<div :class="'transition m-auto cursor-pointer no-highlight'+(expanded?(expanded===c?' expanded':' opacity-25'):'')+(showMenu?' opacity-25':'')" @click="showMenu?null:(expanded=expanded===c?null:c)">
 					<div class="m-auto">
 						<img class="h-24 shadow-md block" src="~/assets/img/card.png" :alt="c">
 						<div class="relative">
@@ -33,13 +33,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="w-1/3 px-2 flex"><div :class="'m-auto cursor-pointer no-highlight'+(expanded?' blur':'')" @click="showMenu=!showMenu">
+			<div class="w-1/3 px-2 flex"><div :class="'m-auto cursor-pointer no-highlight'+(expanded?' opacity-25':'')" @click="showMenu=!showMenu">
 				<img class="h-24 shadow-md block" src="~/assets/img/card-back.png" alt="card">
 			</div></div>
 		</div>
-		<div :class="'flex'+(expanded||showMenu?' blur':'')">
+		<div :class="'flex'+(expanded||showMenu?' opacity-25':'')">
 			<div v-for="g in cardGroups" :key="g.name" class="w-1/3">
-				<div v-if="g.name===currentGroupName" class="relative">
+				<div v-show="g.name===currentGroupName" class="relative">
 					<div class="absolute rainbow w-full h-2px pin-b"></div>
 				</div>
 				<button type="button" :class="`btn-${g.name===currentGroupName?'':'in'}active`" @click="showMenu?null:currentGroupName=g.name">{{g.name}}</button>
