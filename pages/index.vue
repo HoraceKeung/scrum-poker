@@ -17,9 +17,9 @@
 						<img class="h-24 shadow-md block" src="~/assets/img/card.png" :alt="c">
 						<div class="relative">
 							<div v-if="c==='coffee'" class="absolute h-24 w-full pin-b p-3 flex flex-col justify-between">
-								<div class="mx-auto"><img class="h-6 w-6 block" src="~/assets/img/coffee.svg"></div>
-								<div class="mx-auto"><img class="h-3 w-3 block" src="~/assets/img/coffee.svg"></div>
-								<div class="mx-auto rotate"><img class="h-6 w-6 block" src="~/assets/img/coffee.svg"></div>
+								<div class="mx-auto"><img class="h-6 w-6 block" src="~/assets/img/coffee.svg" alt="coffee"></div>
+								<div class="mx-auto"><img class="h-3 w-3 block" src="~/assets/img/coffee.svg" alt="coffee"></div>
+								<div class="mx-auto rotate"><img class="h-6 w-6 block" src="~/assets/img/coffee.svg" alt="coffee"></div>
 							</div>
 							<div v-else class="absolute h-24 w-full text-center pin-b p-3 flex flex-col justify-between">
 								<p class="text-2xl font-bold" v-html="c"/>
