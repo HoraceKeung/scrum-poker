@@ -10,13 +10,7 @@
   ##  CUSTOM CLASSES
   --------------------------------------------------------- */
 
-@font-face {
-	font-family: tech;
-	src: url(~/assets/font/ShareTechMono-Regular.ttf);
-}
-
 html {
-	/* font-family: tech; */
 	font-size: 16px;
 	word-spacing: 1px;
 	-ms-text-size-adjust: 100%;
