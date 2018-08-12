@@ -27,6 +27,13 @@ module.exports = {
 		theme_color: '#24292e',
 		orientation: 'portrait'
 	},
+	workbox: {
+		runtimeCaching: [{
+			urlPattern: '/scrum-poker/_nuxt/.*',
+			handler: 'staleWhileRevalidate',
+			method: 'GET'
+		}]
+	},
 	modules: ['@nuxtjs/pwa'],
 	build: {
 		extractCSS: true,
