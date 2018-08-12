@@ -48,7 +48,7 @@ button:focus, .no-highlight {
 .transition {
 	z-index: 1;
 	transition: z-index 0.25s step-end, transform 0.25s;
-	will-change: transform;
+	will-change: transform, scale;
 }
 .expanded {
 	transition: z-index 0.25s step-start, transform 0.25s;
