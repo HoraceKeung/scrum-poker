@@ -9,13 +9,16 @@
 				</div>
 				<div class="flex justify-between p-2">
 					<img class="w-10 h-10" alt="HK" src="~/assets/img/hk.svg">
-					<p class="mt-auto">Version 0.1.1</p>
+					<p class="text-sm mt-auto">Version 0.2.0</p>
+				</div>
+				<div v-if="deferredPrompt" class="h-12 flex text-center w-full border-t-2 border-black cursor-pointer no-highlight" @click="a2hs">
+					<p class="font-bold m-auto">Add to home screen</p>
 				</div>
 			</div>
 		</div>
 		<div class="flex-1 flex flex-wrap -mx-2">
 			<div v-for="c in currentGroupCards" :key="c" class="w-1/3 px-2 relative flex">
-				<div :class="'transition m-auto cursor-pointer no-highlight'+(expanded?(expanded===c?' expanded':' opacity-25'):'')+(showMenu?' opacity-25':'')" @click="showMenu?null:(expanded=expanded===c?null:c)">
+				<div :class="'transition m-auto cursor-pointer no-highlight'+(expanded?(expanded===c?' expanded':' opacity-5'):'')+(showMenu?' opacity-5':'')" @click="showMenu?null:(expanded=expanded===c?null:c)">
 					<div class="m-auto">
 						<img class="h-24 shadow-md block" src="~/assets/img/card.png" :alt="c">
 						<div class="relative">
@@ -33,11 +36,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="w-1/3 px-2 flex"><div :class="'m-auto cursor-pointer no-highlight'+(expanded?' opacity-25':'')" @click="showMenu=!showMenu">
+			<div class="w-1/3 px-2 flex"><div :class="'m-auto cursor-pointer no-highlight'+(expanded?' opacity-5':'')" @click="showMenu=!showMenu">
 				<img class="h-24 shadow-md block" src="~/assets/img/card-back.png" alt="card">
 			</div></div>
 		</div>
-		<div :class="'flex'+(expanded||showMenu?' opacity-25':'')">
+		<div :class="'flex'+(expanded||showMenu?' opacity-5':'')">
 			<div v-for="g in cardGroups" :key="g.name" class="w-1/3">
 				<div v-show="g.name===currentGroupName" class="relative">
 					<div class="absolute rainbow w-full h-2px pin-b"></div>
@@ -50,6 +53,16 @@
 
 <script>
 export default {
+	created () {
+		window.addEventListener('beforeinstallprompt', (e) => {
+			// Prevent Chrome 67 and earlier from automatically showing the prompt
+			e.preventDefault()
+			// Stash the event so it can be triggered later.
+			this.deferredPrompt = e
+		})
+		this.canNavigatorShare = !!window.navigator.share
+		this.isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true
+	},
 	methods: {
 		swipe () { this.showMenu = false },
 		share () {
@@ -58,13 +71,22 @@ export default {
 				text: 'I am using Scrum Poker, get yours here',
 				url: 'https://horacekeung.github.io/scrum-poker/',
 			})
+		},
+		a2hs () {
+			// Show the prompt
+			this.deferredPrompt.prompt()
+			// Wait for the user to respond to the prompt
+			this.deferredPrompt.userChoice.then(choiceResult => {
+				this.deferredPrompt = null
+			})
 		}
 	},
 	computed: {
-		currentGroupCards () { return this.cardGroups.find(g => g.name === this.currentGroupName).cards.concat(this.others) },
-		canNavigatorShare () { return !!window.navigator.share }
+		currentGroupCards () { return this.cardGroups.find(g => g.name === this.currentGroupName).cards.concat(this.others) }
 	},
 	data: () => ({
+		canNavigatorShare: false,
+		isStandalone: false,
 		currentGroupName: 'Standard',
 		cardGroups: [
 			{
@@ -82,7 +104,8 @@ export default {
 		],
 		others: ['?', `&infin;`],
 		expanded: null,
-		showMenu: false
+		showMenu: false,
+		deferredPrompt: null
 	})
 }
 </script>

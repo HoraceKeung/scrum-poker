@@ -1,7 +1,7 @@
 {
   "name": "scrum-poker",
   "version": "1.0.0",
-  "description": "Scrum Poker",
+  "description": "Scrum Poker is a consensus-based, gamified technique for estimation. This is a progressive web app, you can add to home screen and use it like a native app.",
   "author": "Horace Keung <horacekeung@hotmail.com>",
   "private": true,
   "scripts": {
