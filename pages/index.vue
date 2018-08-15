@@ -9,7 +9,7 @@
 				</div>
 				<div class="flex justify-between p-2">
 					<img class="w-10 h-10" alt="HK" src="~/assets/img/hk.svg">
-					<p class="text-sm mt-auto">Version 0.2.0</p>
+					<p class="text-sm mt-auto">Version 0.3.0</p>
 				</div>
 				<div v-if="deferredPrompt" class="h-12 flex text-center w-full border-t-2 border-black cursor-pointer no-highlight" @click="a2hs">
 					<p class="font-bold m-auto">Add to home screen</p>
