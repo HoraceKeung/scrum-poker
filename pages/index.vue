@@ -1,7 +1,7 @@
 <template>
 	<section class="flex flex-col min-h-screen container overflow-hidden shadow">
 		<div class="relative">
-			<div v-touch:swipe.left="swipe" :class="'menu w-2/3'+(showMenu?' menu-open':'')">
+			<div v-touch:swipe.left="swipeMenu" :class="'menu w-2/3'+(showMenu?' menu-open':'')">
 				<div class="my-auto text-center">
 					<p class="text-xl font-bold">Scrum Poker</p>
 					<div><img class="block w-full" src="~/assets/img/qr-code.png" alt="https://horacekeung.github.io/scrum-poker/"></div>
@@ -16,7 +16,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="flex-1 flex flex-wrap -mx-2">
+		<div v-touch:swipe.left="swipeBody(-1)" v-touch:swipe.right="swipeBody(1)" class="flex-1 flex flex-wrap -mx-2">
 			<div v-for="c in currentGroupCards" :key="c" class="w-1/3 px-2 relative flex">
 				<div :class="'transition m-auto cursor-pointer no-highlight'+(expanded?(expanded===c?' expanded':' opacity-5'):'')+(showMenu?' opacity-5':'')" @click="showMenu?null:(expanded=expanded===c?null:c)">
 					<div class="m-auto">
@@ -64,7 +64,15 @@ export default {
 		this.isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true
 	},
 	methods: {
-		swipe () { this.showMenu = false },
+		swipeMenu () { this.showMenu = false },
+		swipeBody (num) {
+			if (!this.showMenu) {
+				const i = this.cardGroups.findIndex(g => g.name === this.currentGroupName)
+				if (this.cardGroups[i + num]) {
+					this.currentGroupName = this.cardGroups[i + num].name
+				} else if (num < 0) { this.showMenu = true }
+			}
+		},
 		share () {
 			window.navigator.share({
 				title: 'Scrum Poker',
