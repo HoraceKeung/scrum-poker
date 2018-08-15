@@ -9,14 +9,14 @@
 				</div>
 				<div class="flex justify-between p-2">
 					<img class="w-10 h-10" alt="HK" src="~/assets/img/hk.svg">
-					<p class="text-sm mt-auto">Version 0.3.0</p>
+					<p class="text-sm mt-auto">Version 0.3.1</p>
 				</div>
 				<div v-if="deferredPrompt" class="h-12 flex text-center w-full border-t-2 border-black cursor-pointer no-highlight" @click="a2hs">
 					<p class="font-bold m-auto">Add to home screen</p>
 				</div>
 			</div>
 		</div>
-		<div v-touch:swipe.left="swipeBody(-1)" v-touch:swipe.right="swipeBody(1)" class="flex-1 flex flex-wrap -mx-2">
+		<div v-touch:swipe.left="swipeBodyLeft" v-touch:swipe.right="swipeBodyRight" class="flex-1 flex flex-wrap -mx-2">
 			<div v-for="c in currentGroupCards" :key="c" class="w-1/3 px-2 relative flex">
 				<div :class="'transition m-auto cursor-pointer no-highlight'+(expanded?(expanded===c?' expanded':' opacity-5'):'')+(showMenu?' opacity-5':'')" @click="showMenu?null:(expanded=expanded===c?null:c)">
 					<div class="m-auto">
@@ -65,6 +65,8 @@ export default {
 	},
 	methods: {
 		swipeMenu () { this.showMenu = false },
+		swipeBodyLeft () { this.swipeBody(-1) },
+		swipeBodyRight () { this.swipeBody(1) },
 		swipeBody (num) {
 			if (!this.showMenu) {
 				const i = this.cardGroups.findIndex(g => g.name === this.currentGroupName)
