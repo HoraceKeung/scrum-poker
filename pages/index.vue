@@ -9,7 +9,7 @@
 				</div>
 				<div class="flex justify-between p-2">
 					<img class="w-10 h-10" alt="HK" src="~/assets/img/hk.svg">
-					<p class="text-sm mt-auto">Version 0.3.3</p>
+					<p class="text-sm mt-auto">Version 0.3.4</p>
 				</div>
 				<button v-show="deferredPrompt" type="button" class="h-12 w-full border-t-2 border-black no-highlight font-bold" @click="a2hs">Add to home screen</button>
 			</div>
@@ -85,7 +85,7 @@ export default {
 			this.deferredPrompt.prompt()
 			// Wait for the user to respond to the prompt
 			this.deferredPrompt.userChoice.then(choiceResult => {
-				this.deferredPrompt = null
+				if (choiceResult.outcome === 'accepted') { this.deferredPrompt = null }
 			})
 		}
 	},
