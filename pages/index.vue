@@ -9,11 +9,9 @@
 				</div>
 				<div class="flex justify-between p-2">
 					<img class="w-10 h-10" alt="HK" src="~/assets/img/hk.svg">
-					<p class="text-sm mt-auto">Version 0.3.2</p>
+					<p class="text-sm mt-auto">Version 0.3.3</p>
 				</div>
-				<div v-if="deferredPrompt" class="h-12 flex text-center w-full border-t-2 border-black cursor-pointer no-highlight" @click="a2hs">
-					<p class="font-bold m-auto">Add to home screen</p>
-				</div>
+				<button v-show="deferredPrompt" type="button" class="h-12 w-full border-t-2 border-black no-highlight font-bold" @click="a2hs">Add to home screen</button>
 			</div>
 		</div>
 		<div v-touch:swipe.left="swipeBodyLeft" v-touch:swipe.right="swipeBodyRight" class="flex-1 flex flex-wrap -mx-2">
