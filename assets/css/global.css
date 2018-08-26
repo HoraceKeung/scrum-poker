@@ -23,6 +23,9 @@ html {
 	box-sizing: border-box;
 	margin: 0;
 }
+img {
+	user-select: none;
+}
 .rainbow {
 	background: linear-gradient(to right, red, orange , yellow, green, cyan, blue, violet);
 }
@@ -46,22 +49,16 @@ button:focus, .no-highlight {
 }
 .transition {
 	z-index: 1;
-	transition: z-index 0.25s step-end, transform 0.25s;
+	transition: z-index 0.25s step-end, transform 0.25s, opacity 0.25s;
 	will-change: transform, scale;
 }
 .expanded {
-	transition: z-index 0.25s step-start, transform 0.25s;
+	transition: z-index 0.25s step-start, transform 0.25s, opacity 0.25s;
 	transform: scale(4);
 	@apply z-10 fixed pin flex
 }
 .menu {
-	-webkit-transform: translateX(-100%);
-	transform: translateX(-100%);
 	will-change: transform;
 	transition: transform 0.25s;
 	@apply bg-white absolute z-20 h-screen flex flex-col shadow-lg overflow-hidden
-}
-.menu-open {
-	-webkit-transform: none;
-	transform: none;
 }
