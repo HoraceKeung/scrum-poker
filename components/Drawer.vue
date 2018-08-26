@@ -3,7 +3,7 @@
 		<div v-hammer:panstart="startPan" v-hammer:pan="onPan" v-hammer:panend="endPan" :class="className" :style="`transform: translateX(${translate});`">
 			<slot/>
 		</div>
-		<div v-hammer:panstart="startPan" v-hammer:pan="onPan" v-hammer:panend="endPan" class="bg-grey opacity-25 w-4 h-screen absolute z-10"></div>
+		<div v-hammer:panstart="startPan" v-hammer:pan="onPan" v-hammer:panend="endPan" class="w-4 h-screen absolute z-10"></div>
 	</div>
 </template>
 
