@@ -15,7 +15,7 @@
     "@nuxtjs/pwa": "^2.0.8",
     "nuxt": "^1.4.2",
     "tailwindcss": "^0.6.5",
-    "vue2-touch-events": "^1.0.0"
+    "vue2-hammer": "^2.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^9.1.1",

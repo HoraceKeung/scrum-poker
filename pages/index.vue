@@ -1,29 +1,27 @@
 <template>
 	<section class="flex flex-col min-h-screen container overflow-hidden shadow">
-		<div class="relative">
-			<div v-touch:swipe.left="swipeMenu" :class="'menu w-2/3'+(showMenu?' menu-open':'')">
-				<div class="my-auto text-center">
-					<p class="text-xl font-bold">Scrum Poker</p>
-					<div><img class="block w-full" src="~/assets/img/qr-code.png" alt="https://horacekeung.github.io/scrum-poker/"></div>
-					<p v-if="canNavigatorShare" class="mx-auto w-24 text-xl cursor-pointer no-highlight bg-black text-white py-2 px-4 rounded" @click="share">Share</p>
-				</div>
-				<div class="flex justify-between p-2">
-					<img class="w-10 h-10" alt="HK" src="~/assets/img/hk.svg">
-					<p class="text-sm mt-auto">Version 0.3.4</p>
-				</div>
-				<button v-show="deferredPrompt" type="button" class="h-12 w-full border-t-2 border-black no-highlight font-bold" @click="a2hs">Add to home screen</button>
+		<drawer className="menu w-2/3" :isOpen.sync="showMenu">
+			<div class="my-auto text-center">
+				<p class="text-xl font-bold">Scrum Poker</p>
+				<div><img class="block w-full" draggable="false" src="~/assets/img/qr-code.png" alt="https://horacekeung.github.io/scrum-poker/"></div>
+				<p v-if="canNavigatorShare" class="mx-auto w-24 text-xl cursor-pointer no-highlight bg-black text-white py-2 px-4 rounded" @click="share">Share</p>
 			</div>
-		</div>
-		<div v-touch:swipe.left="swipeBodyLeft" v-touch:swipe.right="swipeBodyRight" class="flex-1 flex flex-wrap -mx-2">
+			<div class="flex justify-between p-2">
+				<img class="w-10 h-10" draggable="false" alt="HK" src="~/assets/img/hk.svg">
+				<p class="text-sm mt-auto">Version 0.4.0</p>
+			</div>
+			<button v-show="deferredPrompt" type="button" class="h-12 w-full border-t-2 border-black no-highlight font-bold" @click="a2hs">Add to home screen</button>
+		</drawer>
+		<div class="flex-1 flex flex-wrap -mx-2">
 			<div v-for="c in currentGroupCards" :key="c" class="w-1/3 px-2 relative flex">
 				<div :class="'transition m-auto cursor-pointer no-highlight'+(expanded?(expanded===c?' expanded':' opacity-5'):'')+(showMenu?' opacity-5':'')" @click="showMenu?null:(expanded=expanded===c?null:c)">
 					<div class="m-auto">
-						<img class="h-24 shadow-md block" src="~/assets/img/card.png" :alt="c">
+						<img class="h-24 shadow-md block" draggable="false" src="~/assets/img/card.png" :alt="c">
 						<div class="relative">
 							<div v-if="c==='coffee'" class="absolute h-24 w-full pin-b p-3 flex flex-col justify-between">
-								<div class="mx-auto"><img class="h-6 w-6 block" src="~/assets/img/coffee.svg" alt="coffee"></div>
-								<div class="mx-auto"><img class="h-3 w-3 block" src="~/assets/img/coffee.svg" alt="coffee"></div>
-								<div class="mx-auto rotate"><img class="h-6 w-6 block" src="~/assets/img/coffee.svg" alt="coffee"></div>
+								<div class="mx-auto"><img class="h-6 w-6 block" draggable="false" src="~/assets/img/coffee.svg" alt="coffee"></div>
+								<div class="mx-auto"><img class="h-3 w-3 block" draggable="false" src="~/assets/img/coffee.svg" alt="coffee"></div>
+								<div class="mx-auto rotate"><img class="h-6 w-6 block" draggable="false" src="~/assets/img/coffee.svg" alt="coffee"></div>
 							</div>
 							<div v-else class="absolute h-24 w-full text-center pin-b p-3 flex flex-col justify-between">
 								<p class="text-2xl font-bold" v-html="c"/>
@@ -35,7 +33,7 @@
 				</div>
 			</div>
 			<div class="w-1/3 px-2 flex"><div :class="'m-auto cursor-pointer no-highlight'+(expanded?' opacity-5':'')" @click="showMenu=!showMenu">
-				<img class="h-24 shadow-md block" src="~/assets/img/card-back.png" alt="card">
+				<img class="h-24 shadow-md block" draggable="false" src="~/assets/img/card-back.png" alt="card">
 			</div></div>
 		</div>
 		<div :class="'flex'+(expanded||showMenu?' opacity-5':'')">
@@ -50,7 +48,9 @@
 </template>
 
 <script>
+import Drawer from '~/components/Drawer'
 export default {
+	components: {Drawer},
 	created () {
 		window.addEventListener('beforeinstallprompt', (e) => {
 			// Prevent Chrome 67 and earlier from automatically showing the prompt
@@ -62,17 +62,6 @@ export default {
 		this.isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true
 	},
 	methods: {
-		swipeMenu () { this.showMenu = false },
-		swipeBodyLeft () { this.swipeBody(1) },
-		swipeBodyRight () { this.swipeBody(-1) },
-		swipeBody (num) {
-			if (!this.showMenu) {
-				const i = this.cardGroups.findIndex(g => g.name === this.currentGroupName)
-				if (this.cardGroups[i + num]) {
-					this.currentGroupName = this.cardGroups[i + num].name
-				} else if (num < 0) { this.showMenu = true }
-			}
-		},
 		share () {
 			window.navigator.share({
 				title: 'Scrum Poker',
