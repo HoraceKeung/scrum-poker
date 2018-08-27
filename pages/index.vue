@@ -1,20 +1,22 @@
 <template>
 	<section class="flex flex-col min-h-screen container overflow-hidden shadow">
-		<drawer className="menu w-2/3" :isOpen.sync="showMenu">
-			<div class="my-auto text-center">
-				<p class="text-xl font-bold">Scrum Poker</p>
-				<div><img class="block w-full" draggable="false" src="~/assets/img/qr-code.png" alt="https://horacekeung.github.io/scrum-poker/"></div>
-				<p v-if="canNavigatorShare" class="mx-auto w-24 text-xl cursor-pointer no-highlight bg-black text-white py-2 px-4 rounded" @click="share">Share</p>
+		<app-drawer id="drawer" class="z-50" swipe-open>
+			<div class="h-screen flex flex-col">
+				<div class="my-auto text-center">
+					<p class="text-xl font-bold">Scrum Poker</p>
+					<div><img class="block w-full" draggable="false" src="~/assets/img/qr-code.png" alt="https://horacekeung.github.io/scrum-poker/"></div>
+					<p v-if="canNavigatorShare" class="mx-auto w-24 text-xl cursor-pointer no-highlight bg-black text-white py-2 px-4 rounded" @click="share">Share</p>
+				</div>
+				<div class="flex justify-between p-2">
+					<img class="w-10 h-10" draggable="false" alt="HK" src="~/assets/img/hk.svg">
+					<p class="text-sm mt-auto">Version 0.5.0</p>
+				</div>
+				<button v-show="deferredPrompt" type="button" class="h-12 w-full border-t-2 border-black no-highlight font-bold" @click="a2hs">Add to home screen</button>
 			</div>
-			<div class="flex justify-between p-2">
-				<img class="w-10 h-10" draggable="false" alt="HK" src="~/assets/img/hk.svg">
-				<p class="text-sm mt-auto">Version 0.4.1</p>
-			</div>
-			<button v-show="deferredPrompt" type="button" class="h-12 w-full border-t-2 border-black no-highlight font-bold" @click="a2hs">Add to home screen</button>
-		</drawer>
+		</app-drawer>
 		<div class="flex-1 flex flex-wrap -mx-2">
 			<div v-for="c in currentGroupCards" :key="c" class="w-1/3 px-2 relative flex">
-				<div :class="'transition m-auto cursor-pointer no-highlight'+(expanded?(expanded===c?' expanded':' opacity-5'):'')+(showMenu?' opacity-5':'')" @click="showMenu?null:(expanded=expanded===c?null:c)">
+				<div :class="'transition m-auto cursor-pointer no-highlight'+(expanded?(expanded===c?' expanded':' opacity-5'):'')" @click="expanded=expanded===c?null:c">
 					<div class="m-auto">
 						<img class="h-24 shadow-md block" draggable="false" src="~/assets/img/card.png" :alt="c">
 						<div class="relative">
@@ -32,25 +34,23 @@
 					</div>
 				</div>
 			</div>
-			<div class="w-1/3 px-2 flex"><div :class="'m-auto cursor-pointer no-highlight'+(expanded?' opacity-5':'')" @click="showMenu=!showMenu">
+			<div class="w-1/3 px-2 flex"><div :class="'m-auto cursor-pointer no-highlight'+(expanded?' opacity-5':'')" @click="openDrawer">
 				<img class="h-24 shadow-md block" draggable="false" src="~/assets/img/card-back.png" alt="card">
 			</div></div>
 		</div>
-		<div :class="'flex'+(expanded||showMenu?' opacity-5':'')">
+		<div :class="'flex'+(expanded?' opacity-5':'')">
 			<div v-for="g in cardGroups" :key="g.name" class="w-1/3">
 				<div v-show="g.name===currentGroupName" class="relative">
 					<div class="absolute rainbow w-full h-2px pin-b"></div>
 				</div>
-				<button type="button" :class="`btn-${g.name===currentGroupName?'':'in'}active`" @click="showMenu?null:currentGroupName=g.name">{{g.name}}</button>
+				<button type="button" :class="`btn-${g.name===currentGroupName?'':'in'}active`" @click="currentGroupName=g.name">{{g.name}}</button>
 			</div>
 		</div>
 	</section>
 </template>
 
 <script>
-import Drawer from '~/components/Drawer'
 export default {
-	components: {Drawer},
 	created () {
 		window.addEventListener('beforeinstallprompt', (e) => {
 			// Prevent Chrome 67 and earlier from automatically showing the prompt
@@ -62,6 +62,9 @@ export default {
 		this.isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true
 	},
 	methods: {
+		openDrawer () {
+			document.getElementById('drawer').setAttribute('opened', true)
+		},
 		share () {
 			window.navigator.share({
 				title: 'Scrum Poker',
@@ -101,7 +104,6 @@ export default {
 		],
 		others: ['?', `&infin;`],
 		expanded: null,
-		showMenu: false,
 		deferredPrompt: null
 	})
 }

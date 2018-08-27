@@ -57,8 +57,3 @@ button:focus, .no-highlight {
 	transform: scale(4);
 	@apply z-10 fixed pin flex
 }
-.menu {
-	will-change: transform;
-	transition: transform 0.25s;
-	@apply bg-white absolute z-20 h-screen flex flex-col shadow-lg overflow-hidden
-}
